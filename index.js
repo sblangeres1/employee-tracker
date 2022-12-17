@@ -80,7 +80,7 @@ const promptLoop = async () => {
     ]);
 
     const [rows] = await connection.query(
-      "INSERT INTO employee SET ?",
+      "INSERT INTO employees SET ?",
       employee
     );
   }
@@ -92,7 +92,7 @@ const promptLoop = async () => {
     const update = await inquirer.prompt([
       {
         type: 'list',
-        name: 'role',
+        name: 'name',
         message: 'What employee would you like to update?',
         choices: employees.map(({id, first_name, last_name}) => ({name: first_name + " " + last_name, value: id}))
       },
@@ -105,7 +105,7 @@ const promptLoop = async () => {
     ]);
 
     const [rows] = await connection.query(
-      "UPDATE employee SET role_id = " +
+      "UPDATE employees SET role_id = " +
       update.role +
       " WHERE id = " +
       update.name
@@ -113,7 +113,7 @@ const promptLoop = async () => {
   }
 
   if (choice.choice == 'Add role') {
-    const [departments] = await connection.query("SELECT * FROM department;");
+    const [departments] = await connection.query("SELECT * FROM departments;");
     const role = await inquirer.prompt([
       {
         type: 'input',
@@ -133,13 +133,13 @@ const promptLoop = async () => {
       },
     ]);
 
-    const [rows] = await connection.query("INSERT INTO role SET ?", role);
+    const [rows] = await connection.query("INSERT INTO roles SET ?", role);
   }
 
   if (choice.choice == 'Add department') {
     const department = await inquirer.prompt(departmentQuestions);
     const [rows] = await connection.query(
-      "INSERT INTO department SET ?",
+      "INSERT INTO departments SET ?",
       department
     );
   }

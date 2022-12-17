@@ -1,3 +1,5 @@
+USE employees_db;
+
 DROP TABLE IF EXISTS department;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS employees;
